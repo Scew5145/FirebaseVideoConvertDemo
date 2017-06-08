@@ -13,7 +13,7 @@ const TEMP_LOCAL_FOLDER = '/tmp/';
 /*
 *
 */
-exports.webm-to-mp4 = functions.storage.object().onChange(event => {
+exports.webm_to_mp4 = functions.storage.object().onChange(event => {
   const object = event.data;
   const filePath = object.name;
   const filePathSplit = filePath.split('/');
@@ -22,8 +22,9 @@ exports.webm-to-mp4 = functions.storage.object().onChange(event => {
   const fileDir = filePathSplit.join('/') + (filePathSplit.length > 0 ? '/' : '');
 
   const MP4FilePath = `${fileDir}${baseFileName}.${MP4_EXTENSION}`;
+  const tempLocalDir = `${TEMP_LOCAL_FOLDER}${fileDir}`;
   const tempLocalFile = `${tempLocalDir}${fileName}`;
-  const tempLocalJPEGFile = `${TEMP_LOCAL_FOLDER}${MP4FilePath}`;
+  const tempLocalMP4File = `${TEMP_LOCAL_FOLDER}${MP4FilePath}`;
 
   if(!object.contentType.startsWith('video/')){
     console.log('Item ', fileName, 'is not a video.')
