@@ -47,9 +47,6 @@ exports.webm_to_mp4 = functions.storage.object().onChange(event => {
     console.log('Item ', fileName, 'is not a webm video.')
     return
   }
-  if(object.contentType.startsWith('video/mp4')){
-    console.log('Item ', filename, 'Is already an mp4, no need to convert.')
-  }
 
   //Make sure the event isn't a move or deletion event
   if (object.resourceState === 'not_exists') {
@@ -67,7 +64,7 @@ exports.webm_to_mp4 = functions.storage.object().onChange(event => {
                    .setFfmpegPath(ffmpeg_static.path)
                    .inputFormat(fileExtension)
                    .output(tempLocalMP4File)
-                   //Uncomment to see frame progress
+                   //Uncomment to see frame progress. Change to progress.percent to see bad % completed estimates
                    /*.on('progress', function(progress) {
                      console.log('Processing: ' + progress.frames + ' frames completed');
                    });*/
@@ -84,5 +81,4 @@ exports.webm_to_mp4 = functions.storage.object().onChange(event => {
     });
   });
 
-  console.log("Finished converting!");
 });
